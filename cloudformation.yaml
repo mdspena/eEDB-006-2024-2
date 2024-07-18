@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Projeto de Conclusao da Disciplina eEDB-006/2024-2
+
+Resources:
+  S3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: "eedb-006-2024-2-grupo-2"
+      AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: "Projeto"
+          Value: "Ecosistema de Big Data"
+
+  Database:
+    Type: AWS::Glue::Database
+    Properties:
+      DatabaseInput:
+        Name: !Sub "eedb_006"
+      CatalogId: !Ref AWS::AccountId
